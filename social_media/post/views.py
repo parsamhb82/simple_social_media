@@ -7,9 +7,9 @@ from rest_framework import status
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.generics import ListAPIView, RetrieveAPIView, CreateAPIView, UpdateAPIView, DestroyAPIView
 from user_app.models import UserProfile
-
+from .serializers import CreatPostSerializer
 class CreatPostView(APIView):
-    serializer_class = PostSerializer
+    serializer_class = CreatPostSerializer
     permission_classes = [IsAuthenticated]
 
     def post(self, request):
@@ -20,14 +20,14 @@ class CreatPostView(APIView):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 class PostUpdateView(UpdateAPIView):
-    serializer_class = PostSerializer
+    serializer_class = CreatPostSerializer
     permission_classes = [IsAuthenticated]
 
     def get_queryset(self):
         return Post.objects.filter(user=self.request.user)
 
 class PostDeleteView(DestroyAPIView):
-    serializer_class = PostSerializer
+    serializer_class = CreatPostSerializer
     permission_classes = [IsAuthenticated]
 
     def get_queryset(self):
